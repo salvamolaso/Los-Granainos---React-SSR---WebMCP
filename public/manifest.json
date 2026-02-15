@@ -1,0 +1,21 @@
+{
+  "name": "Los Granainos - Restaurante en Cala de Mijas",
+  "short_name": "Los Granainos",
+  "description": "Restaurante familiar junto a la playa en Cala de Mijas, Costa del Sol, Málaga",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFEF2",
+  "theme_color": "#0077BE",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
