@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import StructuredData from '@/components/StructuredData'
+import WebMCP from '@/components/WebMCP'
 
 export const metadata: Metadata = {
   title: 'Los Granainos - Restaurante Familiar en Cala de Mijas',
@@ -31,6 +32,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
+        <WebMCP />
         {children}
       </body>
     </html>
