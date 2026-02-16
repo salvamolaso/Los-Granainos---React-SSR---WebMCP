@@ -3,7 +3,7 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "Restaurant",
     "name": "Los Granainos",
-    "description": "Restaurante familiar junto a la playa en Cala de Mijas, Costa del Sol, Málaga. Cocina mediterránea auténtica desde 1985",
+    "description": "Restaurante familiar junto a la playa en Cala de Mijas, Costa del Sol, Málaga. Cocina mediterránea auténtica desde 1986",
     "image": "https://losgranainos.com/og-image.jpg",
     "servesCuisine": "Mediterranean",
     "priceRange": "€€",
