@@ -127,13 +127,11 @@ export default function Home() {
           </div>
           <div className="relative">
             <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
-              <div className="w-full h-full bg-gradient-to-br from-mediterranean-blue to-mediterranean-terracotta flex items-center justify-center">
-                <div className="text-center text-white p-12">
-                  <div className="text-6xl mb-4">🌊</div>
-                  <div className="font-display text-3xl font-bold">Vista al Mar</div>
-                  <div className="mt-4 text-mediterranean-sand">Cala de Mijas</div>
-                </div>
-              </div>
+              <img
+                src="/restaurante.jpg"
+                alt="Fachada del restaurante Los Granainos en Cala de Mijas"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-mediterranean-olive rounded-full blur-2xl opacity-60"></div>
           </div>
