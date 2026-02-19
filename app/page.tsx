@@ -27,14 +27,29 @@ export default function Home() {
 
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Basic client-side validation
     if (!booking.name || !booking.guests || !booking.date || !booking.preference) {
       setBookingStatus('error')
       return
     }
-    // TODO: connect to real backend / book_table tool
+
+    const preferenceLabel = booking.preference === 'terraza' ? 'Terraza' : 'Salón'
+    const message = [
+      `Hola, quiero reservar una mesa.`,
+      `Nombre: ${booking.name}`,
+      `Comensales: ${booking.guests}`,
+      `Fecha: ${booking.date}`,
+      `Preferencia: ${preferenceLabel}`,
+      booking.comments ? `Comentarios: ${booking.comments}` : null,
+    ]
+      .filter(Boolean)
+      .join('\n')
+
+    const encodedMessage = encodeURIComponent(message).replace(/%20/g, '+')
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=+34667039082&text=${encodedMessage}&type=phone_number&app_absent=0`
+
     setBookingStatus('success')
     setBooking({ name: '', guests: '', date: '', preference: '', comments: '' })
+    window.open(whatsappUrl, '_blank')
   }
 
   useEffect(() => {
@@ -77,6 +92,7 @@ export default function Home() {
             <a href="/carta" className="hover:text-mediterranean-terracotta transition-colors">Carta Completa</a>
             <a href="/que-puedo-comer" className="hover:text-mediterranean-terracotta transition-colors">¿Qué puedo comer?</a>
             <a href="#nosotros" className="hover:text-mediterranean-terracotta transition-colors">Nosotros</a>
+            <a href="#reservar" className="hover:text-mediterranean-terracotta transition-colors">Reservar</a>
             <a href="#contacto" className="hover:text-mediterranean-terracotta transition-colors">Contacto</a>
           </div>
         </div>
@@ -218,6 +234,170 @@ export default function Home() {
               Ver Carta Completa con Precios
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Booking Section */}
+      <section id="reservar" className="py-32 px-6 bg-mediterranean-cream relative overflow-hidden">
+        {/* Decorative blobs */}
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-mediterranean-blue rounded-full blur-3xl opacity-10"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-mediterranean-terracotta rounded-full blur-3xl opacity-10"></div>
+
+        <div className="max-w-3xl mx-auto relative z-10">
+          {/* Header */}
+          <div className="text-center mb-14">
+            <h2 className="font-display text-5xl md:text-7xl font-bold mb-6 text-gradient">
+              Reserva tu mesa
+            </h2>
+            <p className="text-xl text-gray-700">
+              Cuéntanos cuándo venís y nos preparamos para recibiros
+            </p>
+          </div>
+
+          {/* Success message */}
+          {bookingStatus === 'success' && (
+            <div className="mb-10 p-6 bg-mediterranean-olive/10 border border-mediterranean-olive/30 rounded-2xl text-center">
+              <div className="text-4xl mb-3">🎉</div>
+              <p className="font-display text-2xl font-semibold text-mediterranean-olive mb-1">
+                ¡Reserva recibida!
+              </p>
+              <p className="text-gray-600">
+                Nos pondremos en contacto contigo para confirmar los detalles.
+              </p>
+            </div>
+          )}
+
+          {/* Error message */}
+          {bookingStatus === 'error' && (
+            <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-2xl text-center text-red-600 font-medium">
+              Por favor, rellena todos los campos obligatorios.
+            </div>
+          )}
+
+          {/* Form card */}
+          <form
+            onSubmit={handleBookingSubmit}
+            className="bg-white rounded-3xl shadow-2xl p-10 space-y-8"
+          >
+            {/* Name + Guests */}
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="name" className="text-sm font-semibold text-gray-500 uppercase tracking-widest">
+                  Nombre <span className="text-mediterranean-terracotta">*</span>
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Tu nombre"
+                  value={booking.name}
+                  onChange={handleBookingChange}
+                  required
+                  className="w-full px-5 py-4 rounded-xl border-2 border-mediterranean-sand focus:border-mediterranean-blue outline-none text-base transition-colors bg-mediterranean-cream/40"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label htmlFor="guests" className="text-sm font-semibold text-gray-500 uppercase tracking-widest">
+                  Comensales <span className="text-mediterranean-terracotta">*</span>
+                </label>
+                <input
+                  id="guests"
+                  name="guests"
+                  type="number"
+                  min={1}
+                  max={20}
+                  placeholder="Nº de personas"
+                  value={booking.guests}
+                  onChange={handleBookingChange}
+                  required
+                  className="w-full px-5 py-4 rounded-xl border-2 border-mediterranean-sand focus:border-mediterranean-blue outline-none text-base transition-colors bg-mediterranean-cream/40"
+                />
+              </div>
+            </div>
+
+            {/* Date + Preference */}
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="date" className="text-sm font-semibold text-gray-500 uppercase tracking-widest">
+                  Fecha <span className="text-mediterranean-terracotta">*</span>
+                </label>
+                <input
+                  id="date"
+                  name="date"
+                  type="date"
+                  value={booking.date}
+                  onChange={handleBookingChange}
+                  required
+                  className="w-full px-5 py-4 rounded-xl border-2 border-mediterranean-sand focus:border-mediterranean-blue outline-none text-base transition-colors bg-mediterranean-cream/40"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-gray-500 uppercase tracking-widest">
+                  Preferencia <span className="text-mediterranean-terracotta">*</span>
+                </label>
+                <div className="grid grid-cols-2 gap-3 pt-1">
+                  {(['terraza', 'salon'] as const).map((opt) => (
+                    <label
+                      key={opt}
+                      className={`flex items-center justify-center gap-2 px-4 py-4 rounded-xl border-2 cursor-pointer font-semibold text-sm transition-all select-none ${
+                        booking.preference === opt
+                          ? 'border-mediterranean-blue bg-mediterranean-blue text-white shadow-md'
+                          : 'border-mediterranean-sand text-gray-600 hover:border-mediterranean-blue/50'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="preference"
+                        value={opt}
+                        checked={booking.preference === opt}
+                        onChange={handleBookingChange}
+                        className="sr-only"
+                      />
+                      <span>{opt === 'terraza' ? '🌊' : '🏠'}</span>
+                      <span className="capitalize">{opt === 'salon' ? 'Salón' : 'Terraza'}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Comments */}
+            <div className="flex flex-col gap-2">
+              <label htmlFor="comments" className="text-sm font-semibold text-gray-500 uppercase tracking-widest">
+                Comentarios
+              </label>
+              <textarea
+                id="comments"
+                name="comments"
+                rows={4}
+                placeholder="Alergias, ocasiones especiales, preferencias de mesa..."
+                value={booking.comments}
+                onChange={handleBookingChange}
+                className="w-full px-5 py-4 rounded-xl border-2 border-mediterranean-sand focus:border-mediterranean-blue outline-none text-base transition-colors bg-mediterranean-cream/40 resize-none"
+              />
+            </div>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              className="w-full py-5 bg-mediterranean-terracotta text-white font-semibold text-lg rounded-full hover:bg-opacity-90 transition-all hover:scale-[1.02] shadow-lg active:scale-95"
+            >
+              Solicitar reserva
+            </button>
+
+            <p className="text-center text-xs text-gray-400">
+              También puedes llamarnos al{' '}
+              <a href="tel:+34667039082" className="text-mediterranean-blue hover:underline">
+                +34 667 039 082
+              </a>{' '}
+              o escribirnos a{' '}
+              <a href="mailto:reservas@losgranainos.es" className="text-mediterranean-blue hover:underline">
+                reservas@losgranainos.es
+              </a>
+            </p>
+          </form>
         </div>
       </section>
 
