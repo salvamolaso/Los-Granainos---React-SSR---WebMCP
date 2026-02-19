@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import {
   ALLERGENS,
@@ -54,6 +54,15 @@ export default function QuePuedoComerPage() {
   const [activeFilter, setActiveFilter] = useState('todo')
   const [search, setSearch] = useState('')
   const [excludedAllergens, setExcludedAllergens] = useState<number[]>([])
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { allergens } = (e as CustomEvent<{ allergens: number[] }>).detail
+      setExcludedAllergens(allergens)
+    }
+    window.addEventListener('granainos:set-allergens', handler)
+    return () => window.removeEventListener('granainos:set-allergens', handler)
+  }, [])
 
   const toggleAllergen = (num: number) => {
     setExcludedAllergens((prev) => {

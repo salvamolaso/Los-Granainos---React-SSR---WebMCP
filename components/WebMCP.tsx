@@ -86,6 +86,9 @@ For example, a customer with gluten intolerance and fish allergy would pass excl
           execute: ({ category = 'all', exclude_allergens = [] }: { category?: string; exclude_allergens?: number[] }) => {
             const excluded: number[] = (exclude_allergens ?? []).map(Number)
 
+            // Sync allergen filter to the web page UI
+            window.dispatchEvent(new CustomEvent('granainos:set-allergens', { detail: { allergens: excluded } }))
+
             // Map category slug (menu_del_dia) to category label ('Menú del día')
             const categoryMap: Record<string, string> = {
               entradas:     'Entradas',
