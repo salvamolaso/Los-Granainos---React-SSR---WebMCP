@@ -3,17 +3,47 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
+type BookingStatus = 'idle' | 'success' | 'error'
+
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
   const [currentDay, setCurrentDay] = useState('')
 
+  // ── Booking form state ────────────────────────────────────────────────────
+  const [booking, setBooking] = useState({
+    name: '',
+    guests: '',
+    date: '',
+    preference: '' as '' | 'terraza' | 'salon',
+    comments: '',
+  })
+  const [bookingStatus, setBookingStatus] = useState<BookingStatus>('idle')
+
+  const handleBookingChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    setBooking((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleBookingSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Basic client-side validation
+    if (!booking.name || !booking.guests || !booking.date || !booking.preference) {
+      setBookingStatus('error')
+      return
+    }
+    // TODO: connect to real backend / book_table tool
+    setBookingStatus('success')
+    setBooking({ name: '', guests: '', date: '', preference: '', comments: '' })
+  }
+
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener('scroll', handleScroll)
-    
+
     const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
     setCurrentDay(days[new Date().getDay()])
-    
+
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
