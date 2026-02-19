@@ -45,6 +45,7 @@ export default function Home() {
             <a href="#inicio" className="hover:text-mediterranean-terracotta transition-colors">Inicio</a>
             <a href="#menu" className="hover:text-mediterranean-terracotta transition-colors">Menú</a>
             <a href="/carta" className="hover:text-mediterranean-terracotta transition-colors">Carta Completa</a>
+            <a href="/que-puedo-comer" className="hover:text-mediterranean-terracotta transition-colors">¿Qué puedo comer?</a>
             <a href="#nosotros" className="hover:text-mediterranean-terracotta transition-colors">Nosotros</a>
             <a href="#contacto" className="hover:text-mediterranean-terracotta transition-colors">Contacto</a>
           </div>
@@ -75,11 +76,15 @@ export default function Home() {
             Sabores auténticos junto al mar en la Cala de Mijas
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center opacity-0 animate-fadeInUp delay-300">
-            <a href="/carta" 
+            <a href="/carta"
                className="px-10 py-4 bg-mediterranean-terracotta text-white font-light text-lg rounded-full hover:bg-opacity-90 transition-all hover:scale-105 shadow-lg">
               Ver Carta Completa
             </a>
-            <a href="https://api.whatsapp.com/send/?phone=+34667039082&text=Hola,+quiero+reservar+una+mesa&type=phone_number&app_absent=0" 
+            <a href="/que-puedo-comer"
+               className="px-10 py-4 bg-mediterranean-olive text-white font-light text-lg rounded-full hover:bg-opacity-90 transition-all hover:scale-105 shadow-lg">
+              ¿Qué puedo comer?
+            </a>
+            <a href="https://api.whatsapp.com/send/?phone=+34667039082&text=Hola,+quiero+reservar+una+mesa&type=phone_number&app_absent=0"
                className="px-10 py-4 border-2 border-mediterranean-blue text-mediterranean-blue font-light text-lg rounded-full hover:bg-mediterranean-blue hover:text-white transition-all hover:scale-105">
               Reservar Mesa
             </a>
