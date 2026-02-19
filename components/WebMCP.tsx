@@ -1,113 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-
-// ─── Allergen Names ───────────────────────────────────────────────────────────
-
-const allergenNames: Record<number, string> = {
-  1:  'Gluten',
-  2:  'Crustáceos',
-  3:  'Huevo',
-  4:  'Pescado',
-  5:  'Cacahuetes',
-  6:  'Soja',
-  7:  'Lácteos',
-  8:  'Frutos de cáscara',
-  9:  'Apio',
-  10: 'Mostaza',
-  11: 'Sésamo',
-  12: 'Sulfitos',
-  13: 'Altramuces',
-  14: 'Moluscos',
-}
-
-// ─── Menu Data ────────────────────────────────────────────────────────────────
-
-const menuData = {
-  entradas: [
-    { name: 'Ensalada Especial',                 description: 'Ensalada especial de la casa',          price: '€7.50',    allergens: [3, 4, 12] },
-    { name: 'Tomate, Aguacate, Huevo y Atún',    description: 'Tomate, aguacate, huevo y atún',        price: '€8.50',    highlight: true, allergens: [] },
-    { name: 'Tomate solo',                        description: 'Tomate en lonchas',                     price: '€5.50',    allergens: [] },
-    { name: 'Boquerones en Vinagre',             description: 'Boquerones marinados en vinagre',       price: '€12.00',   allergens: [4, 12] },
-    { name: 'Gambas al Pil-Pil',                 description: 'Gambas al pil-pil',                     price: '€12.00',   highlight: true, allergens: [2] },
-    { name: 'Gambas a la Plancha o Cocidas',     description: 'Gambas a la plancha o cocidas',         price: '€18.00',   highlight: true, allergens: [2] },
-    { name: 'Mejillones al Vapor',               description: 'Mejillones al vapor',                   price: '€12.00',   allergens: [14] },
-    { name: 'Coquinas en Salsa',                 description: 'Coquinas en salsa',                     price: '€15.00',   allergens: [14] },
-    { name: 'Almejas',                           description: 'Almejas',                               price: '€12.00',   allergens: [12, 14] },
-    { name: 'Queso Manchego',                    description: 'Queso manchego',                        price: '€8.00',    allergens: [7] },
-    { name: 'Jamón Serrano',                     description: 'Jamón serrano',                         price: '€8.00',    allergens: [] },
-  ],
-  pescados: [
-    { name: 'Fritura Variada',                   description: 'Fritura variada de pescado (por persona)', price: '€10.00', highlight: true, allergens: [1, 4, 12, 14] },
-    { name: 'Dorada Plancha',                    description: 'Dorada a la plancha',                   price: '€20.00',   highlight: true, allergens: [4] },
-    { name: 'Boquerones Fritos Vitorianos',      description: 'Boquerones fritos vitorianos',          price: '€12.00',   allergens: [1, 4] },
-    { name: 'Boquerones en Vinagre Fritos',      description: 'Boquerones en vinagre fritos',          price: '€15.00',   allergens: [1, 4] },
-    { name: 'Boquerones al Limón',               description: 'Boquerones al limón',                   price: '€14.00',   allergens: [1, 4] },
-    { name: 'Calamares Fritos',                  description: 'Calamares fritos',                      price: '€12.00',   allergens: [1, 12, 14] },
-    { name: 'Calamares a la Plancha',            description: 'Calamares a la plancha',                price: '€14.00',   allergens: [12, 14] },
-    { name: 'Jibia Frita',                       description: 'Jibia frita',                           price: '€12.00',   allergens: [1, 12, 14] },
-    { name: 'Jibia Plancha',                     description: 'Jibia a la plancha',                    price: '€14.00',   allergens: [12, 14] },
-    { name: 'Rosada Frita',                      description: 'Rosada frita',                          price: '€12.00',   allergens: [1, 4] },
-    { name: 'Rosada Plancha',                    description: 'Rosada a la plancha',                   price: '€15.00',   allergens: [4] },
-    { name: 'Pez Espada a la Plancha',           description: 'Pez espada a la plancha',               price: '€18.00',   allergens: [4, 12] },
-    { name: 'Jureles Fritos',                    description: 'Jureles fritos',                        price: '€10.00',   allergens: [1, 4] },
-    { name: 'Bacalao Frito',                     description: 'Bacalao frito',                         price: '€12.00',   allergens: [1, 4] },
-    { name: 'Pescadilla Frita',                  description: 'Pescadilla frita',                      price: '€14.00',   allergens: [1, 4] },
-    { name: 'Salmonetes',                        description: 'Salmonetes',                            price: '€14.00',   allergens: [1, 4] },
-    { name: 'Sardinas',                          description: 'Sardinas',                              price: '€7.00',    highlight: true, allergens: [4] },
-    { name: 'Sardinas Fritas',                   description: 'Sardinas fritas',                       price: '€7.00',    allergens: [14] },
-    { name: 'Puntillitas',                       description: 'Puntillitas',                           price: '€15.00',   allergens: [] },
-    { name: 'Atún',                              description: 'Atún',                                  price: '€20.00',   highlight: true, allergens: [] },
-  ],
-  carnes: [
-    { name: 'Filete de Cerdo',                   description: 'Filete de cerdo',                       price: '€10.00',   allergens: [1] },
-    { name: 'Filete de Cerdo Empanado',          description: 'Filete de cerdo empanado',              price: '€12.00',   allergens: [1, 3] },
-    { name: 'Entrecot con Guarnición',           description: 'Entrecot con guarnición',               price: '€19.00',   highlight: true, allergens: [1] },
-    { name: 'Entrecot a la Pimienta o Roquefort', description: 'Entrecot con salsa a la pimienta o roquefort', price: '€19.00', highlight: true, allergens: [1, 3, 4, 7, 9, 14] },
-    { name: 'Filete de Pollo Empanado',          description: 'Filete de pollo empanado',              price: '€12.00',   allergens: [1, 3] },
-    { name: 'Solomillo de Cerdo con Guarnición', description: 'Solomillo de cerdo con guarnición',     price: '€12.00',   allergens: [1] },
-    { name: 'Solomillo de Cerdo a la Pimienta o Roquefort', description: 'Solomillo de cerdo con salsa a la pimienta o roquefort', price: '€16.00', allergens: [1, 3, 4, 7, 9, 14] },
-    { name: 'Filete de Pollo con Guarnición',    description: 'Filete de pollo con guarnición',        price: '€10.00',   allergens: [1] },
-    { name: 'Hamburguesa con Patatas o Ensalada', description: 'Hamburguesa con patatas fritas o ensalada', price: '€8.00', allergens: [1, 3, 6, 7, 11, 12] },
-  ],
-  huevos: [
-    { name: 'Huevos Fritos con Patatas',         description: 'Huevos fritos con patatas',             price: '€8.50',    allergens: [1, 3] },
-    { name: 'Tortilla Francesa',                 description: 'Tortilla francesa',                     price: '€8.50',    allergens: [3] },
-    { name: 'Tortilla Española',                 description: 'Tortilla española',                     price: '€8.50',    allergens: [1, 3] },
-    { name: 'Tortilla de Espárragos',            description: 'Tortilla de espárragos',                price: '€8.50',    allergens: [3] },
-    { name: 'Tortilla de Queso',                 description: 'Tortilla de queso',                     price: '€8.50',    allergens: [3, 12] },
-    { name: 'Tortilla de Atún',                  description: 'Tortilla de atún',                      price: '€8.50',    allergens: [3, 4] },
-  ],
-  postres: [
-    { name: 'Flan',                              description: 'Flan de huevo con caramelo',            price: '€3.50',    allergens: [3, 7, 8] },
-    { name: 'Fruta del Tiempo',                  description: 'Fruta fresca de temporada',             price: 's/m',      allergens: [] },
-    { name: 'Helados',                           description: 'Helados variados (+1 bola €2.50)',      price: '€4.50',    allergens: [3, 7, 8, 12] },
-    { name: 'Postres Montero',                   description: 'Postres Montero',                       price: '€3.50',    allergens: [3, 7, 8] },
-    { name: 'Tartas Caseras',                    description: 'Cheesecake, Tiramisú o Lemon Pie',      price: '€5.50',    highlight: true, allergens: [1, 3, 7] },
-  ],
-  paella: [
-    { name: 'Paella (por encargo)',              description: 'Paella por encargo, mínimo 2 personas. Precio por persona.', price: '€24.00', highlight: true, allergens: [1, 2, 3, 4, 6, 7, 9, 12, 14] },
-  ],
-  menu_del_dia: [
-    { name: 'Menú del Día',                      description: 'Plato del día + Carne o Pescado + Postre o Café + Pan + Vino o Refresco', price: 'Consultar', allergens: [] },
-  ],
-  vinos: [
-    { name: 'Vino Tinto de la Casa',             description: 'Vino tinto de la casa',                price: '€12.00',   allergens: [] },
-    { name: 'Ribera de la Casa',                 description: 'Ribera de la casa',                    price: '€14.00',   allergens: [] },
-    { name: 'Rioja de la Casa',                  description: 'Rioja de la casa',                     price: '€14.00',   allergens: [] },
-    { name: 'Marqués de Cáceres Tinto',          description: 'Marqués de Cáceres (tinto)',           price: '€17.00',   highlight: true, allergens: [] },
-    { name: 'Ramón Bilbao',                      description: 'Ramón Bilbao',                         price: '€18.00',   highlight: true, allergens: [] },
-    { name: 'Marqués del Riscal',                description: 'Marqués del Riscal',                   price: '€18.00',   allergens: [] },
-    { name: 'Protos',                            description: 'Protos',                               price: '€18.00',   allergens: [] },
-    { name: 'Vino Rosado de la Casa',            description: 'Vino rosado de la casa',               price: '€12.00',   allergens: [] },
-    { name: 'Marqués Cáceres Rosado',            description: 'Marqués Cáceres (rosado)',             price: '€17.00',   allergens: [] },
-    { name: 'Lambrusco',                         description: 'Lambrusco',                            price: '€14.00',   allergens: [] },
-    { name: 'Vino Blanco de la Casa',            description: 'Vino blanco de la casa',               price: '€12.00',   allergens: [] },
-    { name: 'Barbadillo',                        description: 'Barbadillo',                           price: '€12.00',   allergens: [] },
-    { name: 'Viñasol',                           description: 'Viñasol',                              price: '€15.00',   allergens: [] },
-    { name: 'Albariño',                          description: 'Albariño',                             price: '€18.00',   highlight: true, allergens: [] },
-  ],
-}
+import { ALLERGENS, ALL_MENU_ITEMS, filterMenuItems, groupByCategory } from '@/lib/menu'
 
 // ─── Restaurant Info ──────────────────────────────────────────────────────────
 
@@ -190,14 +84,24 @@ For example, a customer with gluten intolerance and fish allergy would pass excl
             required: [],
           },
           execute: ({ category = 'all', exclude_allergens = [] }: { category?: string; exclude_allergens?: number[] }) => {
-            const cat = category.toLowerCase()
-            let result: Record<string, unknown>
+            const excluded: number[] = (exclude_allergens ?? []).map(Number)
 
-            if (cat === 'all' || !cat) {
-              result = menuData
-            } else if (cat in menuData) {
-              result = { [cat]: menuData[cat as keyof typeof menuData] }
-            } else {
+            // Map category slug (menu_del_dia) to category label ('Menú del día')
+            const categoryMap: Record<string, string> = {
+              entradas:     'Entradas',
+              pescados:     'Pescados',
+              carnes:       'Carnes',
+              huevos:       'Huevos',
+              postres:      'Postres',
+              paella:       'Paella',
+              menu_del_dia: 'Menú del día',
+              vinos:        'Vinos',
+            }
+
+            const cat = category.toLowerCase()
+            const categoryLabel = categoryMap[cat]
+
+            if (cat !== 'all' && !categoryLabel) {
               return {
                 content: [{
                   type: 'text',
@@ -206,26 +110,16 @@ For example, a customer with gluten intolerance and fish allergy would pass excl
               }
             }
 
-            // Apply allergen exclusion filter
-            const excluded: number[] = (exclude_allergens ?? []).map(Number)
-            const hasExclusion = excluded.length > 0
+            // Reuse the same filterMenuItems function as the web page
+            const sourceItems = categoryLabel
+              ? ALL_MENU_ITEMS.filter((item) => item.category === categoryLabel)
+              : ALL_MENU_ITEMS
 
-            const filteredResult: Record<string, unknown> = {}
-            let totalRemoved = 0
+            const safe = filterMenuItems(sourceItems, { excludeAllergens: excluded })
+            const totalRemoved = sourceItems.length - safe.length
 
-            for (const [catName, items] of Object.entries(result)) {
-              const allItems = items as typeof menuData.entradas
-              const safe = hasExclusion
-                ? allItems.filter(item => !item.allergens.some(a => excluded.includes(a)))
-                : allItems
-              totalRemoved += allItems.length - safe.length
-              if (safe.length > 0) {
-                filteredResult[catName] = safe
-              }
-            }
-
-            if (Object.keys(filteredResult).length === 0) {
-              const excludedNames = excluded.map(n => allergenNames[n] ?? `alérgeno ${n}`).join(', ')
+            if (safe.length === 0) {
+              const excludedNames = excluded.map((n) => ALLERGENS[n]?.es ?? `alérgeno ${n}`).join(', ')
               return {
                 content: [{
                   type: 'text',
@@ -234,23 +128,25 @@ For example, a customer with gluten intolerance and fish allergy would pass excl
               }
             }
 
-            const summary = Object.entries(filteredResult)
+            // Group and format results respecting CATEGORY_ORDER
+            const grouped = groupByCategory(safe)
+
+            const summary = grouped
               .map(([catName, items]) => {
-                const itemList = (items as typeof menuData.entradas)
-                  .map(i => {
+                const itemList = items
+                  .map((i) => {
                     const allergenList = i.allergens.length > 0
-                      ? ` [alérgenos: ${i.allergens.map(a => `${a}-${allergenNames[a]}`).join(', ')}]`
+                      ? ` [alérgenos: ${i.allergens.map((a) => `${a}-${ALLERGENS[a]?.es}`).join(', ')}]`
                       : ' [sin alérgenos declarados]'
                     return `  • ${i.name} — ${i.price}${i.highlight ? ' ⭐' : ''}${allergenList}`
                   })
                   .join('\n')
-                const label = catName === 'menu_del_dia' ? 'Menú del Día' : catName.charAt(0).toUpperCase() + catName.slice(1)
-                return `## ${label}\n${itemList}`
+                return `## ${catName}\n${itemList}`
               })
               .join('\n\n')
 
-            const exclusionNote = hasExclusion
-              ? `\n\n⚠️ Filtrado: se han ocultado ${totalRemoved} plato(s) con ${excluded.map(n => allergenNames[n] ?? n).join(', ')}. Consulte siempre con nuestro personal sobre posibles trazas.`
+            const exclusionNote = excluded.length > 0
+              ? `\n\n⚠️ Filtrado: se han ocultado ${totalRemoved} plato(s) con ${excluded.map((n) => ALLERGENS[n]?.es ?? n).join(', ')}. Consulte siempre con nuestro personal sobre posibles trazas.`
               : ''
 
             return {
@@ -277,19 +173,7 @@ For example, a customer with gluten intolerance and fish allergy would pass excl
             required: ['query'],
           },
           execute: ({ query }: { query: string }) => {
-            const q = query.toLowerCase()
-            const results: Array<{ category: string; item: typeof menuData.entradas[0] }> = []
-
-            for (const [catName, items] of Object.entries(menuData)) {
-              for (const item of items) {
-                if (
-                  item.name.toLowerCase().includes(q) ||
-                  item.description.toLowerCase().includes(q)
-                ) {
-                  results.push({ category: catName, item })
-                }
-              }
-            }
+            const results = filterMenuItems(ALL_MENU_ITEMS, { search: query })
 
             if (results.length === 0) {
               return {
@@ -301,11 +185,11 @@ For example, a customer with gluten intolerance and fish allergy would pass excl
             }
 
             const formatted = results
-              .map(({ category, item }) => {
+              .map((item) => {
                 const allergenList = item.allergens.length > 0
-                  ? `\n  Alérgenos: ${item.allergens.map(a => `${a}-${allergenNames[a]}`).join(', ')}`
+                  ? `\n  Alérgenos: ${item.allergens.map((a) => `${a}-${ALLERGENS[a]?.es}`).join(', ')}`
                   : '\n  Sin alérgenos declarados'
-                return `• **${item.name}** (${category}) — ${item.price}${item.highlight ? ' ⭐' : ''}\n  ${item.description}${allergenList}`
+                return `• **${item.name}** (${item.category}) — ${item.price}${item.highlight ? ' ⭐' : ''}\n  ${item.description ?? ''}${allergenList}`
               })
               .join('\n\n')
 
