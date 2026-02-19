@@ -5,40 +5,61 @@ import Link from 'next/link'
 export default function CartaPage() {
   const categories = [
     {
-      name: 'Bebidas',
-      slug: 'bebidas',
-      icon: '🍷',
-      description: 'Vinos, cervezas y refrescos',
-      color: 'from-purple-500 to-pink-500'
-    },
-    {
-      name: 'Entrantes',
+      name: 'Entradas',
       slug: 'entrantes',
       icon: '🥗',
-      description: 'Para empezar el festín',
+      description: 'Ensaladas, gambas, mariscos y más',
       color: 'from-green-500 to-emerald-500'
     },
     {
-      name: 'Pescaítos',
+      name: 'Pescados',
       slug: 'pescaitos',
       icon: '🐟',
-      description: 'Nuestra especialidad',
+      description: 'Frituras, planchas y pescados del día',
       color: 'from-blue-500 to-cyan-500'
     },
     {
-      name: 'Carne',
+      name: 'Carnes',
       slug: 'carne',
       icon: '🥩',
-      description: 'De la tierra malagueña',
+      description: 'Filetes, entrecots y solomillos',
       color: 'from-red-500 to-orange-500'
+    },
+    {
+      name: 'Huevos',
+      slug: 'huevos',
+      icon: '🍳',
+      description: 'Tortillas y huevos preparados al momento',
+      color: 'from-yellow-400 to-orange-400'
     },
     {
       name: 'Postres',
       slug: 'postres',
       icon: '🍮',
-      description: 'El dulce final',
+      description: 'Flan, helados y tartas caseras',
       color: 'from-amber-500 to-yellow-500'
-    }
+    },
+    {
+      name: 'Paella',
+      slug: 'paella',
+      icon: '🥘',
+      description: 'Por encargo, mínimo 2 personas',
+      color: 'from-orange-500 to-yellow-500'
+    },
+    {
+      name: 'Menú del Día',
+      slug: 'menu-del-dia',
+      icon: '🍽️',
+      description: 'Plato del día, carne o pescado, postre y bebida',
+      color: 'from-teal-500 to-green-500'
+    },
+    {
+      name: 'Vinos',
+      slug: 'bebidas',
+      icon: '🍷',
+      description: 'Tintos, rosados y blancos',
+      color: 'from-purple-500 to-pink-500'
+    },
   ]
 
   return (
@@ -198,7 +219,7 @@ export default function CartaPage() {
             Reserva tu mesa y vive la experiencia Los Granainos
           </p>
           <Link
-            href="/#contacto"
+            href="https://api.whatsapp.com/send/?phone=+34667039082&text=Hola,+quiero+reservar+una+mesa&type=phone_number&app_absent=0"
             className="inline-block px-12 py-5 bg-white text-mediterranean-blue font-semibold text-xl rounded-full hover:bg-mediterranean-cream transition-all hover:scale-105 shadow-xl"
           >
             Reservar Ahora

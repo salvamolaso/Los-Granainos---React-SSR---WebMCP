@@ -3,55 +3,59 @@ import CategoryLayout from '@/components/CategoryLayout'
 export default function CarnePage() {
   const items = [
     {
-      name: 'Solomillo de Ternera',
-      description: 'Solomillo de ternera a la plancha con guarnición de patatas',
-      price: '€22.00',
-      highlight: true,
+      name: 'Filete de Cerdo',
+      description: 'Filete de cerdo',
+      price: '€10.00',
     },
     {
-      name: 'Entrecot de Buey',
-      description: 'Entrecot de buey madurado 500g, jugoso y tierno',
-      price: '€26.00',
+      name: 'Filete de Cerdo Empanado',
+      description: 'Filete de cerdo empanado',
+      price: '€12.00',
     },
     {
-      name: 'Secreto Ibérico',
-      description: 'Secreto de cerdo ibérico a la plancha con pimientos',
-      price: '€16.00',
-      highlight: true,
-    },
-    {
-      name: 'Pluma Ibérica',
-      description: 'Pluma de cerdo ibérico con salsa de vino Pedro Ximénez',
-      price: '€18.00',
-    },
-    {
-      name: 'Pollo al Ajillo',
-      description: 'Pollo de corral salteado con ajo, vino blanco y perejil',
-      price: '€14.00',
-    },
-    {
-      name: 'Rabo de Toro',
-      description: 'Rabo de toro estofado al estilo tradicional andaluz',
+      name: 'Entrecot con Guarnición',
+      description: 'Entrecot con guarnición',
       price: '€19.00',
       highlight: true,
     },
     {
-      name: 'Carrillada de Cerdo',
-      description: 'Carrilleras de cerdo guisadas en salsa de vino tinto',
-      price: '€17.00',
+      name: 'Entrecot a la Pimienta o Roquefort',
+      description: 'Entrecot con salsa a la pimienta o roquefort',
+      price: '€19.00',
+      highlight: true,
     },
     {
-      name: 'Costillas de Cordero',
-      description: 'Costillas de cordero lechal asadas al horno',
-      price: '€20.00',
+      name: 'Filete de Pollo Empanado',
+      description: 'Filete de pollo empanado',
+      price: '€12.00',
+    },
+    {
+      name: 'Solomillo de Cerdo con Guarnición',
+      description: 'Solomillo de cerdo con guarnición',
+      price: '€12.00',
+    },
+    {
+      name: 'Solomillo de Cerdo a la Pimienta o Roquefort',
+      description: 'Solomillo de cerdo con salsa a la pimienta o roquefort',
+      price: '€16.00',
+    },
+    {
+      name: 'Filete de Pollo con Guarnición',
+      description: 'Filete de pollo con guarnición',
+      price: '€10.00',
+    },
+    {
+      name: 'Hamburguesa con Patatas o Ensalada',
+      description: 'Hamburguesa acompañada de patatas fritas o ensalada',
+      price: '€8.00',
     },
   ]
 
   return (
     <CategoryLayout
-      title="Carne"
+      title="Carnes"
       icon="🥩"
-      description="Carnes selectas de la tierra malagueña"
+      description="Filetes, entrecots y solomillos a tu gusto"
       items={items}
       color="from-red-500 to-orange-500"
     />

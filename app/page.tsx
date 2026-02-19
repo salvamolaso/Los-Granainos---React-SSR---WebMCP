@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
 export default function Home() {
@@ -17,12 +18,12 @@ export default function Home() {
   }, [])
 
   const menuItems = [
-    { name: 'Pescado Fresco del Día', desc: 'Capturado en aguas locales', price: '€18' },
-    { name: 'Paella Mediterránea', desc: 'Receta tradicional familiar', price: '€16' },
-    { name: 'Ensalada Andaluza', desc: 'Ingredientes de la huerta local', price: '€12' },
-    { name: 'Espeto de Sardinas', desc: 'Asadas a la leña como antaño', price: '€14' },
-    { name: 'Gazpacho de la Casa', desc: 'Refrescante y auténtico', price: '€8' },
-    { name: 'Fritura Malagueña', desc: 'Pescaíto frito crujiente', price: '€15' },
+    { name: 'Fritura Variada', desc: 'Pescaíto frito crujiente, por persona', price: '€10' },
+    { name: 'Dorada Plancha', desc: 'Dorada fresca a la plancha', price: '€20' },
+    { name: 'Gambas a la Plancha o Cocidas', desc: 'Gambas frescas a la plancha o cocidas', price: '€18' },
+    { name: 'Sardinas', desc: 'Sardinas frescas del Mediterráneo', price: '€7' },
+    { name: 'Entrecot con Guarnición', desc: 'Entrecot jugoso con guarnición', price: '€19' },
+    { name: 'Paella por Encargo', desc: 'Mínimo 2 personas, con antelación', price: '€24' },
   ]
 
   return (
@@ -78,7 +79,7 @@ export default function Home() {
                className="px-10 py-4 bg-mediterranean-terracotta text-white font-light text-lg rounded-full hover:bg-opacity-90 transition-all hover:scale-105 shadow-lg">
               Ver Carta Completa
             </a>
-            <a href="#contacto" 
+            <a href="https://api.whatsapp.com/send/?phone=+34667039082&text=Hola,+quiero+reservar+una+mesa&type=phone_number&app_absent=0" 
                className="px-10 py-4 border-2 border-mediterranean-blue text-mediterranean-blue font-light text-lg rounded-full hover:bg-mediterranean-blue hover:text-white transition-all hover:scale-105">
               Reservar Mesa
             </a>
@@ -128,8 +129,8 @@ export default function Home() {
           <div className="relative">
             <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="/restaurante.jpg"
-                alt="Fachada del restaurante Los Granainos en Cala de Mijas"
+                src="/logo.jpeg"
+                alt="Logo Los Granainos en Cala de Mijas"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -227,23 +228,26 @@ export default function Home() {
                 <div>
                   <h3 className="font-display text-2xl font-semibold mb-2">Contacto</h3>
                   <p className="text-gray-700 leading-relaxed">
-                    Teléfono: +34 952 XXX XXX<br />
+                    Teléfono: +34 667039082<br />
                     reservas@losgranainos.es
                   </p>
                 </div>
               </div>
 
-              <button className="w-full py-4 bg-mediterranean-blue text-white font-light text-lg rounded-full hover:bg-opacity-90 transition-all hover:scale-105 shadow-lg">
-                Hacer una Reserva
-              </button>
+              <Link
+                href="https://api.whatsapp.com/send/?phone=+34667039082&text=Hola,+quiero+reservar+una+mesa&type=phone_number&app_absent=0"
+                className="inline-block px-10 py-4 bg-mediterranean-blue text-white font-light text-lg rounded-full hover:bg-opacity-90 transition-all hover:scale-105 shadow-lg"
+              >
+            Hacer una reserva
+          </Link>
             </div>
 
             <div className="rounded-3xl overflow-hidden shadow-2xl h-96 bg-gradient-to-br from-mediterranean-blue via-mediterranean-sand to-mediterranean-olive flex items-center justify-center">
-              <div className="text-center text-white p-8">
-                <div className="text-6xl mb-4">🗺️</div>
-                <div className="font-display text-2xl font-bold">Mapa Interactivo</div>
-                <div className="mt-4 text-mediterranean-cream text-sm">Costa del Sol, Málaga</div>
-              </div>
+            <img
+                src="/restaurante.jpg"
+                alt="Fachada Los Granainos en Cala de Mijas"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>

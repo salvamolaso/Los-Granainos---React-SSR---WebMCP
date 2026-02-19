@@ -1,56 +1,90 @@
 import CategoryLayout from '@/components/CategoryLayout'
 
-export default function BebidasPage() {
+export default function VinosPage() {
   const items = [
+    // ── Tintos ──────────────────────────────────────────────────────────────
     {
-      name: 'Vino Blanco de la Casa',
-      description: 'Vino blanco afrutado de Málaga, perfecto con pescado',
-      price: '€3.50',
+      name: 'Vino Tinto de la Casa',
+      description: 'Vino tinto de la casa',
+      price: '€12.00',
     },
     {
-      name: 'Vino Tinto Rioja Crianza',
-      description: 'Crianza con 12 meses en barrica de roble americano',
+      name: 'Ribera de la Casa',
+      description: 'Ribera de la casa',
+      price: '€14.00',
+    },
+    {
+      name: 'Rioja de la Casa',
+      description: 'Rioja de la casa',
+      price: '€14.00',
+    },
+    {
+      name: 'Marqués de Cáceres Tinto',
+      description: 'Marqués de Cáceres (tinto)',
+      price: '€17.00',
+      highlight: true,
+    },
+    {
+      name: 'Ramón Bilbao',
+      description: 'Ramón Bilbao',
       price: '€18.00',
       highlight: true,
     },
     {
-      name: 'Cerveza Cruzcampo de Barril',
-      description: 'Cerveza malagueña bien fría, caña o jarra',
-      price: '€2.50',
+      name: 'Marqués del Riscal',
+      description: 'Marqués del Riscal',
+      price: '€18.00',
     },
     {
-      name: 'Tinto de Verano',
-      description: 'Refresco de vino tinto con limón, ideal para el calor',
-      price: '€3.00',
+      name: 'Protos',
+      description: 'Protos',
+      price: '€18.00',
+    },
+    // ── Rosados ─────────────────────────────────────────────────────────────
+    {
+      name: 'Vino Rosado de la Casa',
+      description: 'Vino rosado de la casa',
+      price: '€12.00',
     },
     {
-      name: 'Agua Mineral',
-      description: 'Agua mineral natural con o sin gas',
-      price: '€2.00',
+      name: 'Marqués Cáceres Rosado',
+      description: 'Marqués Cáceres (rosado)',
+      price: '€17.00',
     },
     {
-      name: 'Refrescos Variados',
-      description: 'Coca-Cola, Fanta, Sprite, Aquarius',
-      price: '€2.50',
+      name: 'Lambrusco',
+      description: 'Lambrusco',
+      price: '€14.00',
+    },
+    // ── Blancos ─────────────────────────────────────────────────────────────
+    {
+      name: 'Vino Blanco de la Casa',
+      description: 'Vino blanco de la casa',
+      price: '€12.00',
     },
     {
-      name: 'Café Expreso',
-      description: 'Café expreso italiano, solo o cortado',
-      price: '€1.80',
+      name: 'Barbadillo',
+      description: 'Barbadillo',
+      price: '€12.00',
     },
     {
-      name: 'Vino Dulce de Málaga',
-      description: 'Vino dulce tradicional malagueño, ideal con postre',
-      price: '€4.00',
+      name: 'Viñasol',
+      description: 'Viñasol',
+      price: '€15.00',
+    },
+    {
+      name: 'Albariño',
+      description: 'Albariño',
+      price: '€18.00',
       highlight: true,
     },
   ]
 
   return (
     <CategoryLayout
-      title="Bebidas"
+      title="Vinos"
       icon="🍷"
-      description="Vinos, cervezas y refrescos para acompañar tu comida"
+      description="Tintos, rosados y blancos para acompañar tu comida"
       items={items}
       color="from-purple-500 to-pink-500"
     />

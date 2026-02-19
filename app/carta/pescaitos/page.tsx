@@ -1,67 +1,118 @@
 import CategoryLayout from '@/components/CategoryLayout'
 
-export default function PescaitosPage() {
+export default function PescadosPage() {
   const items = [
     {
-      name: 'Fritura Malagueña',
-      description: 'Surtido de pescaíto frito: boquerones, jureles, calamares y gambas',
-      price: '€18.00',
-      highlight: true,
-    },
-    {
-      name: 'Boquerones Fritos',
-      description: 'Boquerones frescos rebozados y fritos, crujientes y jugosos',
-      price: '€12.00',
-    },
-    {
-      name: 'Calamares a la Romana',
-      description: 'Anillas de calamar rebozadas en su punto perfecto',
-      price: '€14.00',
-    },
-    {
-      name: 'Espeto de Sardinas',
-      description: 'Sardinas asadas a la leña en espeto, tradición malagueña',
+      name: 'Fritura Variada',
+      description: 'Fritura variada de pescado (por persona)',
       price: '€10.00',
       highlight: true,
     },
     {
-      name: 'Jureles Fritos',
-      description: 'Jureles del Mediterráneo fritos en aceite de oliva virgen extra',
-      price: '€13.00',
-    },
-    {
-      name: 'Gambas Blancas de la Costa',
-      description: 'Gambas blancas de Málaga, a la plancha o cocidas',
-      price: '€22.00',
+      name: 'Dorada Plancha',
+      description: 'Dorada a la plancha',
+      price: '€20.00',
       highlight: true,
     },
     {
-      name: 'Chopitos Fritos',
-      description: 'Chipirones baby rebozados y fritos, tiernos y sabrosos',
+      name: 'Boquerones Fritos Vitorianos',
+      description: 'Boquerones fritos vitorianos',
+      price: '€12.00',
+    },
+    {
+      name: 'Boquerones en Vinagre Fritos',
+      description: 'Boquerones en vinagre fritos',
       price: '€15.00',
     },
     {
-      name: 'Pescado del Día a la Plancha',
-      description: 'Pregunta por nuestra captura del día (precio según mercado)',
-      price: '€18.00',
-    },
-    {
-      name: 'Puntillitas Fritas',
-      description: 'Puntillitas baby fritas al estilo malagueño',
+      name: 'Boquerones al Limón',
+      description: 'Boquerones al limón',
       price: '€14.00',
     },
     {
-      name: 'Acedías Fritas',
-      description: 'Pequeños lenguados fritos enteros, delicados y sabrosos',
-      price: '€16.00',
+      name: 'Calamares Fritos',
+      description: 'Calamares fritos',
+      price: '€12.00',
+    },
+    {
+      name: 'Calamares a la Plancha',
+      description: 'Calamares a la plancha',
+      price: '€14.00',
+    },
+    {
+      name: 'Jibia Frita',
+      description: 'Jibia frita',
+      price: '€12.00',
+    },
+    {
+      name: 'Jibia Plancha',
+      description: 'Jibia a la plancha',
+      price: '€14.00',
+    },
+    {
+      name: 'Rosada Frita',
+      description: 'Rosada frita',
+      price: '€12.00',
+    },
+    {
+      name: 'Rosada Plancha',
+      description: 'Rosada a la plancha',
+      price: '€15.00',
+    },
+    {
+      name: 'Pez Espada a la Plancha',
+      description: 'Pez espada a la plancha',
+      price: '€18.00',
+    },
+    {
+      name: 'Jureles Fritos',
+      description: 'Jureles fritos',
+      price: '€10.00',
+    },
+    {
+      name: 'Bacalao Frito',
+      description: 'Bacalao frito',
+      price: '€12.00',
+    },
+    {
+      name: 'Pescadilla Frita',
+      description: 'Pescadilla frita',
+      price: '€14.00',
+    },
+    {
+      name: 'Salmonetes',
+      description: 'Salmonetes',
+      price: '€14.00',
+    },
+    {
+      name: 'Sardinas',
+      description: 'Sardinas',
+      price: '€7.00',
+      highlight: true,
+    },
+    {
+      name: 'Sardinas Fritas',
+      description: 'Sardinas fritas',
+      price: '€7.00',
+    },
+    {
+      name: 'Puntillitas',
+      description: 'Puntillitas (baby squid)',
+      price: '€15.00',
+    },
+    {
+      name: 'Atún',
+      description: 'Atún',
+      price: '€20.00',
+      highlight: true,
     },
   ]
 
   return (
     <CategoryLayout
-      title="Pescaítos"
+      title="Pescados"
       icon="🐟"
-      description="Nuestra especialidad: pescado fresco frito al momento"
+      description="Pescado fresco del día, frito o a la plancha"
       items={items}
       color="from-blue-500 to-cyan-500"
     />
