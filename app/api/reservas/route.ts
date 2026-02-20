@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase'
 
 export async function POST(req: Request) {
+  const supabaseAdmin = getSupabaseAdmin()
   const { name, guests, date, preference, comments } = await req.json()
 
   if (!name || !guests || !date || !preference) {
