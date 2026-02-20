@@ -25,13 +25,21 @@ export default function Home() {
     setBooking((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!booking.name || !booking.guests || !booking.date || !booking.preference) {
       setBookingStatus('error')
       return
     }
 
+    // Guardar en Supabase (best-effort, no bloquea el flujo)
+    fetch('/api/reservas', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(booking),
+    }).catch(() => { /* silencioso: WhatsApp actúa de respaldo */ })
+
+    // Componer mensaje de WhatsApp
     const preferenceLabel = booking.preference === 'terraza' ? 'Terraza' : 'Salón'
     const message = [
       `Hola, quiero reservar una mesa.`,
