@@ -1,7 +1,7 @@
 {
-  "name": "los-granainos",
+  "name": "agentikas-restaurants",
   "version": "1.0.0",
-  "description": "Restaurante Los Granainos - Cala de Mijas",
+  "description": "Plantilla multi-tenant de restaurantes para Agentikas",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

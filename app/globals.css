@@ -2,15 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap');
-
-:root {
-  --med-blue: #0077BE;
-  --med-sand: #F4E8D0;
-  --med-terracotta: #D4704B;
-  --med-olive: #6B8E23;
-  --med-cream: #FFFEF2;
-}
+/* Google Fonts are loaded from layout.tsx via the theme config */
 
 * {
   margin: 0;
@@ -19,9 +11,9 @@
 }
 
 body {
-  font-family: 'Lato', sans-serif;
-  background: var(--med-cream);
-  color: #2C3E50;
+  font-family: var(--font-body), 'Lato', sans-serif;
+  background: var(--color-bg, #FFFEF2);
+  color: var(--color-text, #2C3E50);
   overflow-x: hidden;
 }
 
@@ -94,8 +86,24 @@ html {
 
 /* Text gradient */
 .text-gradient {
-  background: linear-gradient(135deg, var(--med-blue), var(--med-terracotta));
+  background: linear-gradient(135deg, var(--color-primary, #0077BE), var(--color-accent, #D4704B));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Reveal animation (IntersectionObserver) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hide-mobile { display: none !important; }
 }

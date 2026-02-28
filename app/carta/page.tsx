@@ -1,66 +1,26 @@
-'use client'
+export const runtime = "edge";
 
-import Link from 'next/link'
+import Link from "next/link";
+import { getRestaurant, getCategories } from "@/lib/get-restaurant";
+import type { Metadata } from "next";
 
-export default function CartaPage() {
-  const categories = [
-    {
-      name: 'Entradas',
-      slug: 'entrantes',
-      icon: '🥗',
-      description: 'Ensaladas, gambas, mariscos y más',
-      color: 'from-green-500 to-emerald-500'
-    },
-    {
-      name: 'Pescados',
-      slug: 'pescaitos',
-      icon: '🐟',
-      description: 'Frituras, planchas y pescados del día',
-      color: 'from-blue-500 to-cyan-500'
-    },
-    {
-      name: 'Carnes',
-      slug: 'carne',
-      icon: '🥩',
-      description: 'Filetes, entrecots y solomillos',
-      color: 'from-red-500 to-orange-500'
-    },
-    {
-      name: 'Huevos',
-      slug: 'huevos',
-      icon: '🍳',
-      description: 'Tortillas y huevos preparados al momento',
-      color: 'from-yellow-400 to-orange-400'
-    },
-    {
-      name: 'Postres',
-      slug: 'postres',
-      icon: '🍮',
-      description: 'Flan, helados y tartas caseras',
-      color: 'from-amber-500 to-yellow-500'
-    },
-    {
-      name: 'Paella',
-      slug: 'paella',
-      icon: '🥘',
-      description: 'Por encargo, mínimo 2 personas',
-      color: 'from-orange-500 to-yellow-500'
-    },
-    {
-      name: 'Menú del Día',
-      slug: 'menu-del-dia',
-      icon: '🍽️',
-      description: 'Plato del día, carne o pescado, postre y bebida',
-      color: 'from-teal-500 to-green-500'
-    },
-    {
-      name: 'Vinos',
-      slug: 'bebidas',
-      icon: '🍷',
-      description: 'Tintos, rosados y blancos',
-      color: 'from-purple-500 to-pink-500'
-    },
-  ]
+export async function generateMetadata(): Promise<Metadata> {
+  const info = await getRestaurant();
+  return {
+    title: info ? `Carta | ${info.name}` : "Carta",
+    description: info
+      ? `Descubre la carta completa de ${info.name}. Platos de cocina ${info.cuisine.join(", ").toLowerCase()}.`
+      : "Nuestra carta",
+  };
+}
+
+export default async function CartaPage() {
+  const [info, categories] = await Promise.all([getRestaurant(), getCategories()]);
+
+  if (!info) return null;
+
+  const phone = (info.contact.whatsapp ?? info.contact.phone).replace(/\D/g, "");
+  const whatsappUrl = `https://api.whatsapp.com/send/?phone=${phone}&text=${encodeURIComponent(`Hola, quiero reservar una mesa en ${info.name}`)}&type=phone_number&app_absent=0`;
 
   return (
     <main className="min-h-screen bg-mediterranean-cream">
@@ -68,7 +28,7 @@ export default function CartaPage() {
       <nav className="fixed top-0 w-full z-50 bg-mediterranean-sand/95 backdrop-blur-md shadow-lg">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <Link href="/" className="font-display text-3xl font-bold text-gradient">
-            Los Granainos
+            {info.name}
           </Link>
           <div className="flex gap-6">
             <Link href="/" className="hover:text-mediterranean-terracotta transition-colors">
@@ -89,84 +49,8 @@ export default function CartaPage() {
             Nuestra Carta
           </h1>
           <p className="text-2xl font-light opacity-0 animate-fadeInUp delay-100">
-            Sabores auténticos de la Costa del Sol
+            {info.shortDescription}
           </p>
-        </div>
-      </section>
-
-      {/* Pescaito Frito Tradition */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-            <div>
-              <h2 className="font-display text-5xl font-bold mb-6 text-gradient">
-                La Tradición del Pescaíto Frito
-              </h2>
-              <div className="space-y-4 text-lg leading-relaxed text-gray-700">
-                <p>
-                  El pescaíto frito es el alma de la gastronomía malagueña. Esta tradición centenaria 
-                  nace en los chiringuitos de la costa, donde el pescado más fresco se fríe en abundante 
-                  aceite de oliva virgen extra hasta alcanzar ese punto perfecto: crujiente por fuera, 
-                  jugoso por dentro.
-                </p>
-                <p>
-                  La técnica es un arte que se transmite de generación en generación. La temperatura 
-                  del aceite, el punto exacto de la fritura, la calidad del pescado... todo debe estar 
-                  en perfecta armonía. En Los Granainos mantenemos viva esta tradición desde 1987.
-                </p>
-                <p>
-                  Nuestro pescado llega cada mañana directamente del puerto de La Cala. Boquerones, 
-                  jureles, salmonetes... cada pieza es seleccionada con mimo y frita al momento, 
-                  como manda la tradición malagueña.
-                </p>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="aspect-square rounded-3xl bg-gradient-to-br from-mediterranean-blue to-mediterranean-terracotta p-12 text-white flex flex-col justify-center shadow-2xl">
-                <div className="text-7xl mb-6 text-center">🎣</div>
-                <h3 className="font-display text-3xl font-bold text-center mb-4">
-                  Del Mar a tu Mesa
-                </h3>
-                <ul className="space-y-3 text-lg">
-                  <li className="flex items-center gap-3">
-                    <span className="text-2xl">✓</span>
-                    <span>Pescado fresco diario</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-2xl">✓</span>
-                    <span>Aceite de oliva virgen extra</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-2xl">✓</span>
-                    <span>Fritura al momento</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-2xl">✓</span>
-                    <span>Receta tradicional</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Fun Facts */}
-          <div className="grid md:grid-cols-3 gap-8 mt-16">
-            <div className="bg-mediterranean-sand p-8 rounded-2xl text-center">
-              <div className="text-5xl mb-4">🌊</div>
-              <h4 className="font-display text-2xl font-bold mb-2">5km</h4>
-              <p className="text-gray-600">Distancia del puerto pesquero</p>
-            </div>
-            <div className="bg-mediterranean-sand p-8 rounded-2xl text-center">
-              <div className="text-5xl mb-4">⏰</div>
-              <h4 className="font-display text-2xl font-bold mb-2">2 minutos</h4>
-              <p className="text-gray-600">Tiempo de fritura perfecto</p>
-            </div>
-            <div className="bg-mediterranean-sand p-8 rounded-2xl text-center">
-              <div className="text-5xl mb-4">🔥</div>
-              <h4 className="font-display text-2xl font-bold mb-2">180°C</h4>
-              <p className="text-gray-600">Temperatura ideal del aceite</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -179,7 +63,7 @@ export default function CartaPage() {
           <p className="text-xl text-center text-gray-600 mb-16">
             Selecciona una categoría para ver todos nuestros platos
           </p>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {categories.map((category, index) => (
               <Link
@@ -195,10 +79,9 @@ export default function CartaPage() {
                   <h3 className="font-display text-3xl font-bold mb-3 group-hover:text-mediterranean-blue transition-colors">
                     {category.name}
                   </h3>
-                  <p className="text-gray-600 mb-6">
-                    {category.description}
-                  </p>
-                  <div className={`inline-flex items-center gap-2 text-mediterranean-terracotta font-semibold group-hover:gap-4 transition-all`}>
+                  <p className="text-gray-600 mb-2">{category.description}</p>
+                  <p className="text-sm text-gray-400 mb-6">{category.itemCount} platos</p>
+                  <div className="inline-flex items-center gap-2 text-mediterranean-terracotta font-semibold group-hover:gap-4 transition-all">
                     Ver carta completa
                     <span className="text-xl">→</span>
                   </div>
@@ -212,14 +95,12 @@ export default function CartaPage() {
       {/* CTA Section */}
       <section className="py-20 px-6 bg-gradient-to-r from-mediterranean-blue to-mediterranean-terracotta text-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="font-display text-5xl font-bold mb-6">
-            ¿Listo para disfrutar?
-          </h2>
+          <h2 className="font-display text-5xl font-bold mb-6">¿Listo para disfrutar?</h2>
           <p className="text-2xl mb-10 font-light">
-            Reserva tu mesa y vive la experiencia Los Granainos
+            Reserva tu mesa y vive la experiencia {info.name}
           </p>
           <Link
-            href="https://api.whatsapp.com/send/?phone=+34667039082&text=Hola,+quiero+reservar+una+mesa&type=phone_number&app_absent=0"
+            href={whatsappUrl}
             className="inline-block px-12 py-5 bg-white text-mediterranean-blue font-semibold text-xl rounded-full hover:bg-mediterranean-cream transition-all hover:scale-105 shadow-xl"
           >
             Reservar Ahora
@@ -230,14 +111,12 @@ export default function CartaPage() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12 px-6">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="font-display text-3xl font-bold mb-4 text-gradient">
-            Los Granainos
-          </div>
+          <div className="font-display text-3xl font-bold mb-4 text-gradient">{info.name}</div>
           <p className="text-gray-400">
-            © 2024 Los Granainos. Sabor mediterráneo desde 1987
+            © {new Date().getFullYear()} {info.legalName ?? info.name}. {info.shortDescription}
           </p>
         </div>
       </footer>
     </main>
-  )
+  );
 }
